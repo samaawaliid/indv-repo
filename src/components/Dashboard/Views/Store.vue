@@ -9,6 +9,10 @@
         <button @click= "AddToApi"> add product</button> <br>
         <input type="text" v-model= "product.id"> product id <br>
           <button @click= "del"> del </button> <br>
+          <input type="text" v-model= "product.id"> product id <br>
+          <input type="text" v-model= "product.name"> product name <br>
+          <input type="text" v-model= "product.price"> product price <br>
+            <button @click= "upda"> update </button> <br>
         <table class="table table-striped table-borders">
         <thead>
         <tr>
@@ -81,7 +85,19 @@ export default {
         console.log('Hi')
       })
       window.location.reload()
+    },
+    upda () {
+      axios.patch('http://localhost:3000/api/product/updateProduct' + '/' + this.product.id, {
+        name: this.product.name,
+        price: this.product.price
+      })
+      .then((response) => {
+        console.log(response)
+        console.log('Hi')
+      })
+      window.location.reload()
     }
+
   }
 }
 
