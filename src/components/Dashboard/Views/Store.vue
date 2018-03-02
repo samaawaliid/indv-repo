@@ -6,8 +6,9 @@
       </div>
       <input type="text" v-model= "product.name"> Name <br>
       <input type="text" v-model= "product.price"> Price <br>
-        <button @click= "AddToApi"> add product</button>
-
+        <button @click= "AddToApi"> add product</button> <br>
+        <input type="text" v-model= "product.id"> product id <br>
+          <button @click= "del"> del </button> <br>
         <table class="table table-striped table-borders">
         <thead>
         <tr>
@@ -41,13 +42,13 @@ export default {
   data () {
     return {
       product: {
+        id: '',
         name: '',
         price: '',
         createdat: '',
         updatedat: ''
       },
-      prods: [],
-      id: ''
+      prods: []
     }
   },
   mounted () {
@@ -71,12 +72,16 @@ export default {
     .catch((error) => {
       console.log(error)
     })
+      window.location.reload()
+    },
+    del () {
+      axios.delete('http://localhost:3000/api/product/deleteProduct' + '/' + this.product.id)
+      .then((response) => {
+        console.log(response)
+        console.log('Hi')
+      })
+      window.location.reload()
     }
-  },
-  del () {
-    axios.delete('http://localhost:3000/api/product/deleteProduct', {
-      _id: this.id
-    })
   }
 }
 
